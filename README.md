@@ -51,6 +51,7 @@ Sigmoid squashes any value into `(0, 1)`, which pairs naturally with MSE loss an
 ---
 
 ## Forward Pass
+<img width="422" height="182" alt="image" src="https://github.com/user-attachments/assets/b4c54e5f-0bd6-4617-a23e-4c2eb3cf4193" />
 
 ```
 z_h   = X · W_h.T + b_h        # hidden pre-activation
@@ -95,11 +96,12 @@ dL/db_out  = sum(delta_out, axis=0)
 <img width="649" height="603" alt="image" src="https://github.com/user-attachments/assets/f0b76870-d499-449d-8232-ceca6bf97f27" />
 
 ```
-dL/da_h   = delta_out · W_out                # error propagated back
+dz_out/da_h = W_out
+dL/da_h   = delta_out · dz_out/da_h                # error propagated back
 da_h/dz_h = a_h * (1 - a_h)                 # sigmoid derivative
 delta_h   = dL/da_h * da_h/dz_h
 
-dL/dW_h   = delta_h.T · X
+dL/dW_h   = delta_h.T · X  (because dz_h/dw_h=X)
 dL/db_h   = sum(delta_h, axis=0)
 ```
 
